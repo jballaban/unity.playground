@@ -4,7 +4,7 @@ using System.Linq;
 
 public class Planner
 {
-    public Queue<ActionBase> Plan(GameObject agent, HashSet<ActionBase> actions, State worldstate, State goalstate)
+    public Queue<ActionBase> Plan(HashSet<ActionBase> actions, State worldstate, State goalstate)
     {
         foreach (var a in actions)
             a.Reset();
@@ -29,6 +29,7 @@ public class Planner
         bool result = false;
         foreach (var action in actions)
         {
+            Debug.Log(action.GetType().Name + " " + parent.State.Test(action.PreConditions));
             if (parent.State.Test(action.PreConditions))
             {
                 var state = new State(parent.State);
