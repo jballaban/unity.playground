@@ -1,30 +1,41 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Memory
 {
-    State _state;
-    Dictionary<Type, List<GameObject>> Resources = new Dictionary<Type, List<GameObject>>();
-    public Memory(State state)
-    {
-        _state = state;
-    }
+	State _state;
+	Dictionary<string, List<object>> Facts = new Dictionary<string, List<object>>();
+	public Memory(State state)
+	{
+		_state = state;
+	}
 
-    public void Remember<TResource>(GameObject resource)
-    {
-        if (!Resources.ContainsKey(typeof(TResource)))
-            Resources[typeof(TResource)] = new List<GameObject>() { resource };
-        else
-            Resources[typeof(TResource)].Add(resource);
-        _state["know" + typeof(TResource).Name] = true;
-    }
+	public List<TFact> GetAll<TFact>(string key = null)
+	{
+		if (key == null) key = typeof(TFact).Name;
+		if (Facts.ContainsKey(key))
+			return Facts[key].Cast<TFact>().ToList();
+		return new List<TFact>();
+	}
 
-    public void Forget<TResource>(GameObject resource)
-    {
-        if (!Resources.ContainsKey(typeof(TResource)))
-            return;
-        Resources[typeof(TResource)].Remove(resource);
-        _state["know" + typeof(TResource).Name] = Resources[typeof(TResource)].Count > 0;
-    }
+	public void Remember(object fact, string key = null)
+	{
+		if (key == null) key = fact.GetType().Name;
+		if (!Facts.ContainsKey(key))
+			Facts[key] = new List<object>() { fact };
+		else
+			Facts[key].Add(fact);
+		_state["know" + key] = true;
+	}
+
+	public void Forget(object fact, string key = null)
+	{
+		if (key == null) key = fact.GetType().Name;
+		if (!Facts.ContainsKey(key))
+			return;
+		Facts[key].Remove(fact);
+		_state["know" + key] = Facts[key].Count > 0;
+	}
 }
