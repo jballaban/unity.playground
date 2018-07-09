@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -277,7 +277,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 429719065}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 20, y: 1, z: 20}
+  m_LocalPosition: {x: 20, y: 0.5, z: 20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1808603219}
@@ -348,6 +348,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a28a5e7ee58d8764ab6423e8a91cab64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Quantity: 0
 --- !u!1 &570883177
 GameObject:
   m_ObjectHideFlags: 0
@@ -374,7 +375,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 570883177}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 40, y: 1, z: 10}
+  m_LocalPosition: {x: 40, y: 0.1, z: 10}
   m_LocalScale: {x: 5, y: 0.1, z: 5}
   m_Children: []
   m_Father: {fileID: 1808603219}
@@ -445,6 +446,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ff33552decb19d49ad7a10d5c52b078, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Quantity: 0
 --- !u!1 &1217250060
 GameObject:
   m_ObjectHideFlags: 0
@@ -461,6 +463,7 @@ GameObject:
   - component: {fileID: 1217250069}
   - component: {fileID: 1217250068}
   - component: {fileID: 1217250067}
+  - component: {fileID: 1217250070}
   m_Layer: 0
   m_Name: Lumberjack
   m_TagString: Untagged
@@ -475,7 +478,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1217250060}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 30, y: 1, z: 30}
+  m_LocalPosition: {x: 30, y: 0.5, z: 30}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1808603219}
@@ -513,6 +516,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b53a10b3fbd0f91458103728dbfc1581, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Navigation: {fileID: 0}
 --- !u!65 &1217250064
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -578,11 +582,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c266433970ea5147b65942678a0f12d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RequiresInRange: 0
-  IsInRange: 0
-  Target: {fileID: 0}
   Cost: 0
   IsDone: 0
+  IsInRange: 0
+  Target: {fileID: 0}
 --- !u!114 &1217250068
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -594,11 +597,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3b6ccf62228ecf4a8fcfcf10ecf2ea4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RequiresInRange: 0
-  IsInRange: 0
-  Target: {fileID: 0}
   Cost: 0
   IsDone: 0
+  IsInRange: 0
+  Target: {fileID: 0}
 --- !u!114 &1217250069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -610,11 +612,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b5d83eaa86f9c349bebb8dd1d1c4b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RequiresInRange: 0
-  IsInRange: 0
-  Target: {fileID: 0}
   Cost: 0
   IsDone: 0
+  IsInRange: 0
+  Target: {fileID: 0}
+--- !u!114 &1217250070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1217250060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c23e14f1729f508458b1f5493995c5cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _nav: {fileID: 0}
 --- !u!1 &1808603216
 GameObject:
   m_ObjectHideFlags: 0
@@ -625,6 +638,10 @@ GameObject:
   - component: {fileID: 1808603219}
   - component: {fileID: 1808603218}
   - component: {fileID: 1808603217}
+  - component: {fileID: 1808603220}
+  - component: {fileID: 1808603223}
+  - component: {fileID: 1808603222}
+  - component: {fileID: 1808603221}
   m_Layer: 0
   m_Name: Terrain
   m_TagString: Untagged
@@ -689,3 +706,50 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1808603220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1808603216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd7ce39f4f629dd4cb32cec866935167, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Depots: {fileID: 0}
+  Trees: {fileID: 0}
+  Logs: {fileID: 0}
+--- !u!114 &1808603221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1808603216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c1bef81c294c3741a53168fed82fb90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1808603222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1808603216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b9e6d676bbd58f4e96c3cffdb1d46a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1808603223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1808603216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a093b2f91b4453d41818aea1a54027c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
