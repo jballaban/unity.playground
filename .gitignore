@@ -34,3 +34,7 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+SampleScenes
+/Assets/SampleScenes.meta
+/Assets/Standard Assets.meta
+Standard Assets
