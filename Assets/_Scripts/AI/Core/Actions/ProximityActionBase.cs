@@ -4,15 +4,15 @@ using UnityEngine;
 
 public abstract class ProximityActionBase : ActionBase
 {
-	public bool IsInRange = false;
-	public Transform Target = null;
+    public bool IsInRange = false;
+    public ResourceBaseRecollection Target = null;
 
-	public override void Reset()
-	{
-		IsInRange = false;
-		Target = null;
-	}
+    public override void Reset()
+    {
+        IsInRange = false;
+        Target = null;
+    }
 
-	public abstract void DetermineTarget(AgentBase agent);
+    public abstract void DetermineTarget(AgentBase agent);
 
 }

@@ -1,8 +1,11 @@
 public class ChopTreeAction : ExtractAction<TreeResource, LogResource>
 {
-    public override bool Perform(AgentBase agent)
+    public override ResourceManager OutputManager
     {
-        agent.Backpack.Inc<LogResource>(1f);
-        return true;
+        get
+        {
+            return ManagerBase.Instance.GetManager<LogManager>();
+        }
     }
+
 }
