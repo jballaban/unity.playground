@@ -1,11 +1,11 @@
 public class ChopTreeAction : ExtractAction<TreeResource, LogResource>
 {
-    public override ResourceManager OutputManager
-    {
-        get
-        {
-            return ManagerBase.Instance.GetManager<LogManager>();
-        }
-    }
+	public override IResourceManager OutputManager
+	{
+		get
+		{
+			return ManagerBase.Instance.GetManager<LogManager>();
+		}
+	}
 
 }

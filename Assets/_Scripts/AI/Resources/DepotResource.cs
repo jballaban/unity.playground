@@ -1,4 +1,4 @@
 public class DepotResource : ResourceBase
 {
-    public override ResourceManager Manager { get { return ManagerBase.Instance.GetManager<DepotManager>(); } }
+	public override IResourceManager Manager { get { return ManagerBase.Instance.GetManager<DepotManager>(); } }
 }

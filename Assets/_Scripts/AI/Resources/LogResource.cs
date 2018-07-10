@@ -3,5 +3,5 @@ using UnityEngine;
 
 public class LogResource : ResourceBase
 {
-    public override ResourceManager Manager { get { return ManagerBase.Instance.GetManager<LogManager>(); } }
+	public override IResourceManager Manager { get { return ManagerBase.Instance.GetManager<LogManager>(); } }
 }

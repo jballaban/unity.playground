@@ -2,29 +2,31 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-[RequireComponent(typeof(DepotManager), typeof(TreeManager), typeof(LogManager))]
-public class ManagerBase : MonoBehaviour
+public class ManagerBase
 {
-    public Dictionary<Type, ResourceManager> _resources = new Dictionary<Type, ResourceManager>();
+	ManagerBase() { }
 
-    public T GetManager<T>() where T : ResourceManager
-    {
-        return (T)_resources[typeof(T)];
-    }
+	public Dictionary<Type, IResourceManager> _resources = new Dictionary<Type, IResourceManager>();
 
-    static ManagerBase _instance = null;
-    public static ManagerBase Instance
-    {
-        get
-        {
-            if (_instance == null)
-                _instance = FindObjectOfType<ManagerBase>();
-            return _instance;
-        }
-    }
+	public T GetManager<T>() where T : IResourceManager
+	{
+		return (T)_resources[typeof(T)];
+	}
 
-    public void Register(ResourceManager manager)
-    {
-        _resources.Add(manager.GetType(), manager);
-    }
+	static ManagerBase _instance = null;
+	public static ManagerBase Instance
+	{
+		get
+		{
+			if (_instance == null)
+				_instance = new ManagerBase();
+			return _instance;
+		}
+	}
+
+	public void Register(IResourceManager manager)
+	{
+		Debug.Log("Register Mananger " + manager.GetType().Name);
+		_resources.Add(manager.GetType(), manager);
+	}
 }

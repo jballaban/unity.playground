@@ -3,16 +3,34 @@ using UnityEngine;
 
 public abstract class ResourceBase : MonoBehaviour
 {
-    public float Quantity = 0f;
-    public abstract ResourceManager Manager { get; }
+	public float Quantity = 0f;
 
-    public float Take(float max)
-    {
-        var result = Mathf.Min(Quantity, max);
-        Quantity = Mathf.Max(0f, Quantity - max);
-        if (Quantity == 0)
-            Manager.Remove(this);
-        return result;
-    }
+	public void Start()
+	{
+		UpdateSize();
+	}
+
+	public abstract IResourceManager Manager { get; }
+
+	public virtual void Inc(float amount)
+	{
+		Quantity += amount;
+		UpdateSize();
+	}
+
+	public float Take(float max)
+	{
+		var result = Mathf.Min(Quantity, max);
+		Quantity = Mathf.Max(0f, Quantity - max);
+		if (Quantity == 0f)
+			Manager.Remove(this);
+		UpdateSize();
+		return result;
+	}
+
+	public void UpdateSize()
+	{
+		this.transform.localScale = new Vector3(this.transform.localScale.x, Quantity, this.transform.localScale.z);
+	}
 
 }

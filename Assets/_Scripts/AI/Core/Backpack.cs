@@ -13,11 +13,23 @@ public class Backpack
 
 	public void Inc<TResource>(float amount) where TResource : ResourceBase
 	{
-		if (!_resources.ContainsKey(typeof(TResource)))
-			_resources.Add(typeof(TResource), Mathf.Max(0f, amount));
+		var key = typeof(TResource);
+		if (!_resources.ContainsKey(key))
+			_resources.Add(key, Mathf.Max(0f, amount));
 		else
-			_resources[typeof(TResource)] = Mathf.Max(_resources[typeof(TResource)] + amount, 0f);
-		_state["has" + typeof(TResource).Name] = _resources[typeof(TResource)] > 0f;
+			_resources[key] = Mathf.Max(_resources[key] + amount, 0f);
+		_state["has" + key.Name] = _resources[key] > 0f;
+	}
+
+	public float Take<TResource>(float amount)
+	{
+		var key = typeof(TResource);
+		if (!_resources.ContainsKey(key))
+			return 0f;
+		var toremove = Mathf.Min(amount, _resources[key]);
+		_resources[key] -= Mathf.Max(0f, amount);
+		_state["has" + key.Name] = _resources[key] > 0f;
+		return toremove;
 	}
 
 }

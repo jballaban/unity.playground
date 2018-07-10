@@ -2,44 +2,54 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public abstract class ResourceManager : MonoBehaviour
+public interface IResourceManager
 {
-    public Transform Template;
-    public Transform Root;
-    protected virtual void Awake()
-    {
-        ManagerBase.Instance.Register(this);
-    }
-
-    public List<ResourceBase> Resources = new List<ResourceBase>();
-
-    public void Remove(ResourceBase resource)
-    {
-        Resources.Remove(resource);
-        Destroy(resource.gameObject);
-    }
-
-    public Transform Create()
-    {
-        return Object.Instantiate(Template, Root);
-    }
-
-    public ResourceBase FindByID(int id)
-    {
-        return Resources.FirstOrDefault(r => r.GetInstanceID() == id);
-    }
+	void Remove(ResourceBase resource);
+	ResourceBase FindByID(int id);
+	ResourceBase Create(Vector3 position, float qty);
 }
 
-public abstract class ResourceManager<TResource> : ResourceManager where TResource : MonoBehaviour
+public abstract class ResourceManager<TResource> : MonoBehaviour, IResourceManager where TResource : ResourceBase
 {
-    protected override void Awake()
-    {
-        base.Awake();
-        Resources = FindObjectsOfType<TResource>().Cast<ResourceBase>().ToList();
-    }
+	public void Awake()
+	{
+		ManagerBase.Instance.Register(this);
+	}
 
-    public List<TResource> GetAll()
-    {
-        return Resources.Cast<TResource>().ToList();
-    }
+	public Transform Template;
+	public Transform Root;
+
+	List<ResourceBase> _resources = null;
+
+	public List<ResourceBase> Resources
+	{
+		get
+		{
+			if (_resources == null)
+				_resources = FindObjectsOfType<TResource>().Cast<ResourceBase>().ToList();
+			return _resources;
+		}
+	}
+
+	public void Remove(ResourceBase resource)
+	{
+		Resources.Remove(resource);
+		Destroy(resource.gameObject);
+	}
+
+	public ResourceBase Create(Vector3 position, float qty)
+	{
+		var obj = Object.Instantiate(Template, Root);
+		obj.position = position;
+		var resource = obj.GetComponent<ResourceBase>();
+		Resources.Add(resource);
+		resource.Inc(qty);
+		return resource;
+
+	}
+
+	public ResourceBase FindByID(int id)
+	{
+		return Resources.FirstOrDefault(r => r.GetInstanceID() == id);
+	}
 }
