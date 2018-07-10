@@ -13,12 +13,12 @@ public class NavigationBase : MonoBehaviour
 		_nav = this.GetComponent<NavMeshAgent>();
 	}
 
-	public T GetClosest<T>(List<KeyValuePair<Vector3, T>> kvp) where T : class
+	public KeyValuePair<Vector3, T>? GetClosest<T>(List<KeyValuePair<Vector3, T>> kvp) where T : class
 	{
 		if (kvp.Count == 0)
 			return null;
 
-		var closest = kvp[0].Value;
+		var closest = kvp[0];
 		var distance = Vector3.Distance(this.transform.position, kvp[0].Key);
 		foreach (var pair in kvp)
 		{
@@ -26,7 +26,7 @@ public class NavigationBase : MonoBehaviour
 			if (d < distance)
 			{
 				distance = d;
-				closest = pair.Value;
+				closest = pair;
 			}
 		}
 		return closest;

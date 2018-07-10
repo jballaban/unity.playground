@@ -13,12 +13,15 @@ public abstract class DepositAction<TDestination, TResource> : ProximityActionBa
 
 	public override void DetermineTarget(AgentBase agent)
 	{
-		Target = agent.Navigation.GetClosest(agent.Memory.GetAll<ResourceBaseRecollection>(typeof(TDestination)).Select(m => new System.Collections.Generic.KeyValuePair<Vector3, ResourceBaseRecollection>(m.Position, m)).ToList());
+		var closest = agent.Navigation.GetClosest(agent.Memory.GetAll<ResourceBaseRecollection>(typeof(TDestination)).Select(m => new System.Collections.Generic.KeyValuePair<Vector3, ResourceBaseRecollection>(m.Position, m)).ToList());
+		Destination = closest.Value.Key;
+		Target = closest.Value.Value;
 	}
 
 	public override bool Perform(AgentBase agent)
 	{
-		var resource = Target.GetOriginal();
+		if (Target as ResourceBaseRecollection == null) return Failure(agent);
+		var resource = (Target as ResourceBaseRecollection).GetOriginal();
 		if (resource == null)
 		{
 			agent.Memory.Forget(Target);

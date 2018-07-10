@@ -23,7 +23,7 @@ public class Planner
 		var root = new Node(null, 0f, worldstate, null);
 		if (!BuildGraph(root, ref leaves, usableActions, goalstate))
 			return null; // no valid plans found
-		var cheapest = leaves.OrderByDescending(l => l.RunningCost).First();
+		var cheapest = leaves.OrderBy(l => l.RunningCost).First();
 		var ancestors = new List<ActionBase>();
 		while (cheapest != null)
 		{

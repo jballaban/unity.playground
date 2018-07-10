@@ -31,6 +31,7 @@ public abstract class ResourceBase : MonoBehaviour
 	public void UpdateSize()
 	{
 		this.transform.localScale = new Vector3(this.transform.localScale.x, Quantity, this.transform.localScale.z);
+		this.transform.position = new Vector3(this.transform.position.x, this.transform.localScale.y / 2, this.transform.position.z);
 	}
 
 }

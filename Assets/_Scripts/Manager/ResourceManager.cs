@@ -17,6 +17,7 @@ public abstract class ResourceManager<TResource> : MonoBehaviour, IResourceManag
 	}
 
 	public Transform Template;
+
 	public Transform Root;
 
 	List<ResourceBase> _resources = null;

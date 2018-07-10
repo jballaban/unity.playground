@@ -28,8 +28,14 @@ public class Memory
 		if (!Facts.ContainsKey(key))
 			Facts[key] = new List<Recollection>() { recollection };
 		else
+		{
+			var exists = Facts[key].FirstOrDefault(f => f.InstanceID == recollection.InstanceID);
+			if (exists != null)
+				return exists;
 			Facts[key].Add(recollection);
+		}
 		_state["know" + key] = true;
+		Debug.Log("Memory.Remember: " + key);
 		return recollection;
 	}
 
@@ -47,6 +53,7 @@ public class Memory
 public abstract class Recollection
 {
 	public Type Type;
+	public int InstanceID;
 }
 
 public class ResourceBaseRecollection : Recollection
@@ -65,7 +72,6 @@ public class ResourceBaseRecollection : Recollection
 	public readonly Vector3 Position;
 	public readonly Vector3 Scale;
 	public readonly Quaternion Rotation;
-	public readonly int InstanceID;
 	IResourceManager manager;
 	public ResourceBase GetOriginal()
 	{
