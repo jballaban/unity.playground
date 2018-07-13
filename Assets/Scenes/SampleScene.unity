@@ -253,15 +253,72 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4525996224277954, guid: 74de3448d1976dc48ac6494900fef6af, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4525996224277954, guid: 74de3448d1976dc48ac6494900fef6af, type: 2}
       propertyPath: m_LocalScale.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1948965732410016, guid: 74de3448d1976dc48ac6494900fef6af, type: 2}
+      propertyPath: m_TagString
+      value: interactive
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 74de3448d1976dc48ac6494900fef6af, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &656515595
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 656515596}
+  - component: {fileID: 656515598}
+  - component: {fileID: 656515597}
+  m_Layer: 0
+  m_Name: Vision
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &656515596
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 656515595}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1217250061}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &656515597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 656515595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4968572522a3853408f5c03c92492882, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!135 &656515598
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 656515595}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 15
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1174575921
 Prefab:
   m_ObjectHideFlags: 0
@@ -358,11 +415,13 @@ GameObject:
   - component: {fileID: 1217250067}
   - component: {fileID: 1217250070}
   - component: {fileID: 1217250071}
-  - component: {fileID: 1217250072}
   - component: {fileID: 1217250073}
   - component: {fileID: 1217250075}
   - component: {fileID: 1217250074}
   - component: {fileID: 1217250064}
+  - component: {fileID: 1217250076}
+  - component: {fileID: 1217250077}
+  - component: {fileID: 1217250078}
   m_Layer: 0
   m_Name: Lumberjack
   m_TagString: Untagged
@@ -377,10 +436,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1217250060}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 44.01, y: 0.5, z: 13.14}
+  m_LocalPosition: {x: 44.01, y: 0.5, z: 10.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1792402250}
+  - {fileID: 656515596}
   m_Father: {fileID: 1808603219}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -543,18 +603,6 @@ MonoBehaviour:
   IsDone: 0
   IsInRange: 0
   Destination: {x: 0, y: 0, z: 0}
---- !u!135 &1217250072
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1217250060}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 20
-  m_Center: {x: 0.5, y: 0.5, z: 0.5}
 --- !u!54 &1217250073
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -600,6 +648,39 @@ MonoBehaviour:
   IsDone: 0
   IsInRange: 0
   Destination: {x: 0, y: 0, z: 0}
+--- !u!114 &1217250076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1217250060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a2385f5e9818a64c90a4a88eb8d2c97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1217250077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1217250060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03fc86b5aeea1b9439641caaa5b9ef55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1217250078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1217250060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 876387a6870f6464aad45faee35e1106, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1682507949
 Prefab:
   m_ObjectHideFlags: 0
@@ -637,7 +718,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4506863892088846, guid: f2a9758d51a33fc40bce44a9f8bc986c, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1504489317131322, guid: f2a9758d51a33fc40bce44a9f8bc986c, type: 2}
+      propertyPath: m_TagString
+      value: interactive
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f2a9758d51a33fc40bce44a9f8bc986c, type: 2}
@@ -723,7 +808,6 @@ GameObject:
   - component: {fileID: 1808603223}
   - component: {fileID: 1808603222}
   - component: {fileID: 1808603221}
-  - component: {fileID: 1808603220}
   m_Layer: 0
   m_Name: Terrain
   m_TagString: Untagged
@@ -788,19 +872,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1808603220
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1808603216}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2528207f49821e74897d3353bbf8eb2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Template: {fileID: 0}
-  Root: {fileID: 1808603219}
 --- !u!114 &1808603221
 MonoBehaviour:
   m_ObjectHideFlags: 0
