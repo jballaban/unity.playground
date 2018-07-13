@@ -6,8 +6,8 @@ using UnityEngine.Events;
 
 public class SensorySystem : SubSystem
 {
-	public class ObserveEnterEvent : UnityEvent<GameObject> { }
+    public class ObserveEnterEvent : UnityEvent<GameObject> { }
 
-	public class ObserveExitEvent : UnityEvent<GameObject> { }
+    public class ObserveExitEvent : UnityEvent<GameObject> { }
 
 }

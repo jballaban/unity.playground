@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311918, g: 0.3807398, b: 0.35872716, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -421,7 +421,7 @@ GameObject:
   - component: {fileID: 1217250064}
   - component: {fileID: 1217250076}
   - component: {fileID: 1217250077}
-  - component: {fileID: 1217250078}
+  - component: {fileID: 1217250072}
   m_Layer: 0
   m_Name: Lumberjack
   m_TagString: Untagged
@@ -603,6 +603,17 @@ MonoBehaviour:
   IsDone: 0
   IsInRange: 0
   Destination: {x: 0, y: 0, z: 0}
+--- !u!114 &1217250072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1217250060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41a5a783af74e5a409a29b9a6a559fe6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!54 &1217250073
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -668,17 +679,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 03fc86b5aeea1b9439641caaa5b9ef55, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1217250078
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1217250060}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 876387a6870f6464aad45faee35e1106, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1682507949
