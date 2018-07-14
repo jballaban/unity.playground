@@ -17,19 +17,19 @@ public abstract class MemoryComponentBase : ComponentBase
 
     Dictionary<int, object> _memories = new Dictionary<int, object>();
 
-    public void Remember<T>(int id, object data) where T : IRecollection
+    public virtual void Remember<T>(int id, object data) where T : IRecollection
     {
         if (_memories.ContainsKey(id))
         {
             ((T)_memories[id]).Refresh(data);
             return;
         }
-        var safedata = Activator.CreateInstance(typeof(T), new object[] { data });
+        var safedata = Activator.CreateInstance(typeof(T), new object[] { id, data });
         _memories.Add(id, safedata);
         _memorySystem.GetEvent<MemorySystem.RememberEvent>().Invoke(id, safedata);
     }
 
-    public void Forget(int id)
+    public virtual void Forget(int id)
     {
         if (_memories.ContainsKey(id))
         {

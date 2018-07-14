@@ -6,19 +6,44 @@ using UnityEngine;
 [RequireComponent(typeof(SensorySystem))]
 public class ResourceMemoryComponent : MemoryComponentBase
 {
-
+    State _worldState;
     Dictionary<Type, List<int>> _resourceIds = new Dictionary<Type, List<int>>();
 
     void Start()
     {
         GetComponent<SensorySystem>().GetEvent<SensorySystem.ObserveEnterEvent>().AddListener(OnObserveEnter);
+        _worldState = GetComponent<AgentBase>().WorldState;
     }
 
-    public List<T> GetAll<T>()
+    public override void Remember<T>(int id, object data)
     {
-        if (!_resourceIds.ContainsKey(typeof(T)))
-            return new List<T>();
-        return _resourceIds[typeof(T)].Select(r => Recall<T>(r)).ToList();
+        var resource = data as ResourceBase;
+        if (resource == null)
+            throw new Exception(String.Format("Resource Memory is only for saving resources, not other stuff like {0}", data.GetType().Name));
+        var type = resource.GetType();
+        if (!_resourceIds.ContainsKey(type))
+            _resourceIds.Add(type, new List<int>());
+        if (!_resourceIds[type].Contains(id))
+            _resourceIds[type].Add(id);
+        base.Remember<T>(id, data);
+        _worldState["know" + type.Name] = true;
+    }
+
+    public override void Forget(int id)
+    {
+        var item = Recall<ResourceRecollection>(id);
+        if (!_resourceIds.ContainsKey(item.type))
+            throw new Exception(String.Format("Resources list is out of date with memory component, seems wrong.  Trying to forget {0}", item.type));
+        _resourceIds[item.type].Remove(id);
+        base.Forget(id);
+        _worldState["know" + item.type.Name] = _resourceIds[item.type].Count > 0;
+    }
+
+    public List<ResourceRecollection> GetAll(Type type)
+    {
+        if (!_resourceIds.ContainsKey(type))
+            return new List<ResourceRecollection>();
+        return _resourceIds[type].Select(r => Recall<ResourceRecollection>(r)).ToList();
     }
 
     void OnObserveEnter(GameObject obj)
@@ -29,11 +54,6 @@ public class ResourceMemoryComponent : MemoryComponentBase
             if (resource == null) return;
             var id = resource.GetInstanceID();
             Remember<ResourceRecollection>(id, resource);
-            var type = resource.GetType();
-            if (!_resourceIds.ContainsKey(type))
-                _resourceIds.Add(type, new List<int>());
-            if (!_resourceIds[type].Contains(id))
-                _resourceIds[type].Add(id);
         }
     }
 }

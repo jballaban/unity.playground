@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(NavigationBase))]
 public abstract class AgentBase : MonoBehaviour
@@ -16,7 +17,6 @@ public abstract class AgentBase : MonoBehaviour
     public State WorldState;
     public State GoalState;
     public Backpack Backpack;
-    public MemoryBase Memory;
     public NavigationBase Navigation;
 
     protected virtual void Start()
@@ -29,25 +29,17 @@ public abstract class AgentBase : MonoBehaviour
         GoalState = new State();
         foreach (var a in gameObject.GetComponents<ActionBase>())
             AvailableActions.Add(a);
-        Memory = gameObject.GetComponent<MemoryBase>();
-        Memory.Initialize(WorldState);
         IdleState = new IdleState(this);
         MoveState = new MoveState(this);
         ActState = new ActState(this);
         StateMachine = new FSM();
         StateMachine.PushState(IdleState);
         Navigation = gameObject.GetComponent<NavigationBase>();
+        //GetComponent<SensorySystem>().GetEvent<SensorySystem.ObserveEnterEvent>().AddListener(OnTriggerEnter);
     }
 
     protected virtual void Update()
     {
         StateMachine.Update();
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        var resource = other.GetComponent<ResourceBase>();
-        if (resource != null)
-            Memory.Remember(resource);
     }
 }
