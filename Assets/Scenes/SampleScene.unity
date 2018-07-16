@@ -385,7 +385,6 @@ GameObject:
   - component: {fileID: 1217250069}
   - component: {fileID: 1217250068}
   - component: {fileID: 1217250067}
-  - component: {fileID: 1217250070}
   - component: {fileID: 1217250071}
   - component: {fileID: 1217250073}
   - component: {fileID: 1217250075}
@@ -394,6 +393,7 @@ GameObject:
   - component: {fileID: 1217250077}
   - component: {fileID: 1217250072}
   - component: {fileID: 1217250078}
+  - component: {fileID: 1217250064}
   m_Layer: 0
   m_Name: Lumberjack
   m_TagString: Untagged
@@ -449,6 +449,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Navigation: {fileID: 0}
+--- !u!114 &1217250064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1217250060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e665a97f4752ea34bbfbddea607315fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _nav: {fileID: 0}
 --- !u!23 &1217250065
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -536,18 +548,6 @@ MonoBehaviour:
   IsDone: 0
   IsInRange: 0
   Destination: {x: 0, y: 0, z: 0}
---- !u!114 &1217250070
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1217250060}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c23e14f1729f508458b1f5493995c5cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _nav: {fileID: 0}
 --- !u!114 &1217250071
 MonoBehaviour:
   m_ObjectHideFlags: 0
