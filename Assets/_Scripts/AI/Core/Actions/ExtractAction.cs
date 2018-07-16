@@ -18,6 +18,8 @@ public abstract class ExtractAction<TSource, TOutput> : ProximityActionBase wher
     public override void DetermineTarget(AgentBase agent)
     {
         var closest2 = agent.Navigation.GetClosest(_resourceMemory.GetAll(typeof(TSource)).Select(m => new System.Collections.Generic.KeyValuePair<Vector3, ResourceRecollection>(m.position, m)).ToList());
+        if (closest2 == null)
+            return;
         Destination = closest2.Value.Key;
         Target = closest2.Value.Value;
     }

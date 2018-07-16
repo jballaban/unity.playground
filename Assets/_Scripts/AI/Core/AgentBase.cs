@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(NavigationBase))]
+[RequireComponent(typeof(NavigationSystem))]
 public abstract class AgentBase : MonoBehaviour
 {
     public HashSet<ActionBase> AvailableActions;
@@ -17,7 +17,7 @@ public abstract class AgentBase : MonoBehaviour
     public State WorldState;
     public State GoalState;
     public Backpack Backpack;
-    public NavigationBase Navigation;
+    public NavigationSystem Navigation;
 
     protected virtual void Start()
     {
@@ -34,8 +34,7 @@ public abstract class AgentBase : MonoBehaviour
         ActState = new ActState(this);
         StateMachine = new FSM();
         StateMachine.PushState(IdleState);
-        Navigation = gameObject.GetComponent<NavigationBase>();
-        //GetComponent<SensorySystem>().GetEvent<SensorySystem.ObserveEnterEvent>().AddListener(OnTriggerEnter);
+        Navigation = gameObject.GetComponent<NavigationSystem>();
     }
 
     protected virtual void Update()
