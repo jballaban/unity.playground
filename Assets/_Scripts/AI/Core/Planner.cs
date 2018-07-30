@@ -5,6 +5,12 @@ using System;
 
 public class Planner
 {
+    AgentBase _agent;
+    public Planner(AgentBase agent)
+    {
+        _agent = agent;
+    }
+
     public Queue<ActionBase> Plan(HashSet<ActionBase> actions, State worldstate, State goalstate)
     {
         foreach (var a in actions)
@@ -18,7 +24,7 @@ public class Planner
                 valids.Add(action.GetType().Name);
             }
         }
-        Debug.Log("Valid Next Actions: " + String.Join(", ", valids.ToArray()));
+        Debugger.Instance.Log<Planner>("Valid Next Actions: " + String.Join(", ", valids.ToArray()), _agent.gameObject);
         var leaves = new List<Node>();
         var root = new Node(null, 0f, worldstate, null);
         if (!BuildGraph(root, ref leaves, usableActions, goalstate))
@@ -31,6 +37,7 @@ public class Planner
                 ancestors.Insert(0, cheapest.Action);
             cheapest = cheapest.Parent;
         }
+        Debugger.Instance.Log<Planner>("New Plan: " + String.Join(", ", ancestors.Select(a => a.GetType().Name).ToArray()), _agent.gameObject);
         return new Queue<ActionBase>(ancestors);
     }
 

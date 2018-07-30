@@ -24,14 +24,14 @@ public abstract class ActionBase : MonoBehaviour
 
     protected bool Failure(AgentBase agent)
     {
-        Debug.Log("Action Failed: " + this.GetType().Name);
+        Debugger.Instance.Log<ActionBase>("Action Failed: " + this.GetType().Name, agent.gameObject);
         IsDone = true;
         return false;
     }
 
     protected bool Success(AgentBase agent)
     {
-        Debug.Log("Action Success: " + this.GetType().Name);
+        Debugger.Instance.Log<ActionBase>("Action Success: " + this.GetType().Name, agent.gameObject);
         IsDone = true;
         //agent.WorldState.Apply(this.Effects);
         return true;

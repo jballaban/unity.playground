@@ -19,9 +19,9 @@ public abstract class AgentBase : MonoBehaviour
     public Backpack Backpack;
     public NavigationSystem Navigation;
 
-    protected virtual void Start()
+    protected virtual void Awake()
     {
-        Planner = new Planner();
+        Planner = new Planner(this);
         CurrentActions = new Queue<ActionBase>();
         AvailableActions = new HashSet<ActionBase>();
         WorldState = new State();

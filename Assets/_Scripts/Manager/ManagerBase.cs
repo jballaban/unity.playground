@@ -33,7 +33,6 @@ public class ManagerBase
 
     public void Register(IResourceManager manager)
     {
-        Debug.Log("Register Mananger " + manager.GetType().Name);
         _resources.Add(manager.GetType(), manager);
     }
 }

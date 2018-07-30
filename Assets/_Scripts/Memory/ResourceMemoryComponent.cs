@@ -11,8 +11,8 @@ public class ResourceMemoryComponent : MemoryComponentBase
 
     void Start()
     {
-        GetComponent<SensorySystem>().GetEvent<SensorySystem.ObserveEnterEvent>().AddListener(OnObserveEnter);
         _worldState = GetComponent<AgentBase>().WorldState;
+        GetComponent<SensorySystem>().GetEvent<SensorySystem.ObserveEnterEvent>().AddListener(OnObserveEnter);
     }
 
     public override void Remember<T>(int id, object data)
