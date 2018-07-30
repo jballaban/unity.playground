@@ -13,6 +13,12 @@ public class NavigationSystem : SubSystem
         _nav = this.GetComponent<NavMeshAgent>();
     }
 
+    void Update()
+    {
+        if (!_nav.isStopped)
+            Debugger.Instance.Do<NavigationSystem>(ShowDestination, this.gameObject);
+    }
+
     public KeyValuePair<Vector3, T>? GetClosest<T>(List<KeyValuePair<Vector3, T>> kvp) where T : class
     {
         if (kvp.Count == 0)
@@ -47,6 +53,11 @@ public class NavigationSystem : SubSystem
         //Debug.Log("Navigation: start");
         _nav.isStopped = false;
         return _nav.SetDestination(destination);
+    }
+
+    void ShowDestination()
+    {
+        Debug.DrawLine(_nav.transform.position, _nav.destination, Color.red);
     }
 
     public void Stop()
