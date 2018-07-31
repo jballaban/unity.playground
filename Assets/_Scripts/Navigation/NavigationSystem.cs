@@ -50,7 +50,6 @@ public class NavigationSystem : SubSystem
 
     public bool GoTo(Vector3 destination)
     {
-        //Debug.Log("Navigation: start");
         _nav.isStopped = false;
         return _nav.SetDestination(destination);
     }
@@ -62,7 +61,6 @@ public class NavigationSystem : SubSystem
 
     public void Stop()
     {
-        //Debug.Log("Navigation: stop");
         _nav.isStopped = true;
     }
 }

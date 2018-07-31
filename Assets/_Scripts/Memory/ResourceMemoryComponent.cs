@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(SensorySystem))]
-public class ResourceMemoryComponent : MemoryComponentBase
+public class ResourceMemoryComponent : MemoryComponentBase, IDebugListener
 {
     State _worldState;
     Dictionary<Type, List<int>> _resourceIds = new Dictionary<Type, List<int>>();
@@ -13,6 +13,25 @@ public class ResourceMemoryComponent : MemoryComponentBase
     {
         _worldState = GetComponent<AgentBase>().WorldState;
         GetComponent<SensorySystem>().GetEvent<SensorySystem.ObserveEnterEvent>().AddListener(OnObserveEnter);
+    }
+
+    public void FocusDebug()
+    {
+        Debugger.Instance.Log<ResourceMemoryComponent>("Debug.Focus", gameObject);
+        foreach (var type in _resourceIds.Keys)
+        {
+            foreach (var id in _resourceIds[type])
+            {
+                var obj = base.Get<ResourceRecollection>(id);
+                DebugManager.Instance.CreateFrom(obj.manager.GetTemplate(), obj.position, obj.quantity);
+            }
+        }
+    }
+
+    public void BlurDebug()
+    {
+        Debugger.Instance.Log<ResourceMemoryComponent>("Debug.Blur", gameObject);
+        DebugManager.Instance.Clear();
     }
 
     public override void Remember<T>(int id, object data)

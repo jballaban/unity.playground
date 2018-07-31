@@ -6,6 +6,7 @@ using UnityEngine;
 public abstract class MemoryComponentBase : ComponentBase
 {
     MemorySystem _memorySystem;
+    protected AgentBase agent;
     void Awake()
     {
         _memorySystem = GetComponentInParent<MemorySystem>();
@@ -13,6 +14,7 @@ public abstract class MemoryComponentBase : ComponentBase
             throw new Exception("MemorySystem required to be a parent of MemoryComponent");
         _memorySystem.RegisterEvent(new MemorySystem.RememberEvent());
         _memorySystem.RegisterEvent(new MemorySystem.ForgetEvent());
+        agent = GetComponent<AgentBase>();
     }
 
     Dictionary<int, object> _memories = new Dictionary<int, object>();
@@ -39,9 +41,14 @@ public abstract class MemoryComponentBase : ComponentBase
         }
     }
 
-    public T Recall<T>(int id)
+    protected T Get<T>(int id)
     {
         return (T)(_memories.ContainsKey(id) ? _memories[id] : null);
+    }
+
+    public T Recall<T>(int id)
+    {
+        return Get<T>(id);
     }
 
 }

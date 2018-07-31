@@ -7,6 +7,7 @@ public interface IResourceManager
     void Remove(ResourceBase resource);
     ResourceBase FindByID(int id);
     ResourceBase Create(Vector3 position, float qty);
+    Transform GetTemplate();
 }
 
 public abstract class ResourceManager<TResource> : MonoBehaviour, IResourceManager where TResource : ResourceBase
@@ -22,6 +23,7 @@ public abstract class ResourceManager<TResource> : MonoBehaviour, IResourceManag
 
     List<ResourceBase> _resources = null;
 
+
     public List<ResourceBase> Resources
     {
         get
@@ -31,6 +33,8 @@ public abstract class ResourceManager<TResource> : MonoBehaviour, IResourceManag
             return _resources;
         }
     }
+
+    public Transform GetTemplate() { return Template; }
 
     public virtual void Remove(ResourceBase resource)
     {
@@ -46,7 +50,6 @@ public abstract class ResourceManager<TResource> : MonoBehaviour, IResourceManag
         Resources.Add(resource);
         resource.Inc(qty);
         return resource;
-
     }
 
     public ResourceBase FindByID(int id)
