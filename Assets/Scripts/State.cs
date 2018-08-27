@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class State : Dictionary<string, object>, IAIState
+public class State : Dictionary<string, object>, AIPlannerIState
 {
     public State() : base() { }
     public State(State state) : base(state) { }

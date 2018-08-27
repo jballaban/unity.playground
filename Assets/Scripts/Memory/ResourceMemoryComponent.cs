@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(SensorySystem))]
-public class ResourceMemoryComponent : MemoryComponentBase, IDebuggerListener
+public class ResourceMemoryComponent : MemoryComponentBase, DebuggerIListener
 {
     State _worldState;
     Dictionary<Type, List<int>> _resourceIds = new Dictionary<Type, List<int>>();

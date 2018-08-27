@@ -27,10 +27,10 @@ public class Debugger : MonoBehaviour
     {
         if (selected == UnityEditor.Selection.activeGameObject) return;
         if (selected != null)
-            new List<IDebuggerListener>(selected.GetComponents<IDebuggerListener>()).ForEach(x => x.BlurDebug());
+            new List<DebuggerIListener>(selected.GetComponents<DebuggerIListener>()).ForEach(x => x.BlurDebug());
         selected = UnityEditor.Selection.activeGameObject;
         if (selected != null)
-            new List<IDebuggerListener>(selected.GetComponents<IDebuggerListener>()).ForEach(x => x.FocusDebug());
+            new List<DebuggerIListener>(selected.GetComponents<DebuggerIListener>()).ForEach(x => x.FocusDebug());
     }
 
     public void Do<T>(Action act, UnityEngine.Object context)
