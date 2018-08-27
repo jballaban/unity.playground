@@ -9,9 +9,9 @@ public class GetAction<TResource> : ProximityActionBase where TResource : Resour
     protected override void Start()
     {
         base.Start();
-        this.PreConditions["has" + typeof(TResource).Name] = false;
-        this.PreConditions["know" + typeof(TResource).Name] = true;
-        this.Effects["has" + typeof(TResource).Name] = true;
+        this.preConditions["has" + typeof(TResource).Name] = false;
+        this.preConditions["know" + typeof(TResource).Name] = true;
+        this.effects["has" + typeof(TResource).Name] = true;
         _resourceMemory = GetComponent<ResourceMemoryComponent>();
     }
 

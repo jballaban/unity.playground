@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class ActionBase : MonoBehaviour
+public abstract class ActionBase : MonoBehaviour, IAIAction
 {
-    public Dictionary<string, object> PreConditions;
-    public Dictionary<string, object> Effects;
-    public float Cost = 1f;
+    public Dictionary<string, object> preConditions { get; set; }
+    public Dictionary<string, object> effects { get; set; }
+    public float cost { get; set; }
     public bool IsDone = false;
 
     protected virtual void Start()
     {
-        PreConditions = new Dictionary<string, object>();
-        Effects = new Dictionary<string, object>();
+        preConditions = new Dictionary<string, object>();
+        effects = new Dictionary<string, object>();
     }
 
     public virtual void Reset()

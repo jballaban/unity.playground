@@ -7,10 +7,10 @@ public class SearchAction<TResource> : ProximityActionBase where TResource : Res
     protected override void Start()
     {
         base.Start();
-        this.PreConditions["has" + typeof(TResource).Name] = false;
-        this.PreConditions["know" + typeof(TResource).Name] = false;
-        this.Effects["know" + typeof(TResource).Name] = true;
-        this.Cost = 10f;
+        this.preConditions["has" + typeof(TResource).Name] = false;
+        this.preConditions["know" + typeof(TResource).Name] = false;
+        this.effects["know" + typeof(TResource).Name] = true;
+        this.cost = 10f;
     }
 
     public override bool Perform(AgentBase agent)

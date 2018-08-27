@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(SphereCollider))]
-public class VisionComponent : ComponentBase
+public class VisionComponent : MonoBehaviour
 {
     SensorySystem _sensorySystem;
     void Awake()

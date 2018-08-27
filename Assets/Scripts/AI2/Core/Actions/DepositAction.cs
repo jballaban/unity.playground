@@ -7,9 +7,9 @@ public abstract class DepositAction<TDestination, TResource> : ProximityActionBa
     protected override void Start()
     {
         base.Start();
-        this.PreConditions["has" + typeof(TResource).Name] = true;
-        this.PreConditions["know" + typeof(TDestination).Name] = true;
-        this.Effects["collect" + typeof(TResource).Name] = true;
+        this.preConditions["has" + typeof(TResource).Name] = true;
+        this.preConditions["know" + typeof(TDestination).Name] = true;
+        this.effects["collect" + typeof(TResource).Name] = true;
         _resourceMemory = GetComponent<ResourceMemoryComponent>();
     }
 

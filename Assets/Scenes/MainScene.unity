@@ -577,11 +577,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1944129866}
-  - component: {fileID: 1944129865}
   - component: {fileID: 1944129869}
   - component: {fileID: 1944129868}
   - component: {fileID: 1944129867}
   - component: {fileID: 1944129870}
+  - component: {fileID: 1944129871}
   m_Layer: 0
   m_Name: Globals
   m_TagString: Untagged
@@ -589,19 +589,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1944129865
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1944129864}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3bce58e50bcec7446a4f3b66b9886355, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WatchedCategories: []
-  WatchSelected: 1
 --- !u!4 &1944129866
 Transform:
   m_ObjectHideFlags: 0
@@ -668,6 +655,19 @@ MonoBehaviour:
   Template: {fileID: 0}
   Root: {fileID: 1445702254}
   material: {fileID: 2100000, guid: 52dc66e0557533c488c9267c5a138ad7, type: 2}
+--- !u!114 &1944129871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1944129864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e56a14add904d8478dca674055b96c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WatchedCategories: []
+  WatchSelected: 1
 --- !u!1 &1971477786
 GameObject:
   m_ObjectHideFlags: 0

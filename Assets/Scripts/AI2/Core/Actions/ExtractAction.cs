@@ -7,9 +7,9 @@ public abstract class ExtractAction<TSource, TOutput> : ProximityActionBase wher
     protected override void Start()
     {
         base.Start();
-        this.PreConditions["know" + typeof(TSource).Name] = true;
-        this.PreConditions["has" + typeof(TOutput).Name] = false;
-        this.Effects["know" + typeof(TOutput).Name] = true;
+        this.preConditions["know" + typeof(TSource).Name] = true;
+        this.preConditions["has" + typeof(TOutput).Name] = false;
+        this.effects["know" + typeof(TOutput).Name] = true;
         _resourceMemory = GetComponent<ResourceMemoryComponent>();
     }
 

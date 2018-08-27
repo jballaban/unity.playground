@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class State : Dictionary<string, object>
+public class State : Dictionary<string, object>, IAIState
 {
     public State() : base() { }
     public State(State state) : base(state) { }
-    public bool Test(Dictionary<string, object> state)
+
+    public bool Test(IDictionary<string, object> state)
     {
         foreach (var kvp in state)
         {
@@ -25,9 +26,14 @@ public class State : Dictionary<string, object>
         return true;
     }
 
-    public void Apply(Dictionary<string, object> diff)
+    public void Apply(IDictionary<string, object> diff)
     {
         foreach (var key in diff.Keys)
             this[key] = diff[key];
+    }
+
+    public object Clone()
+    {
+        return new State(this);
     }
 }

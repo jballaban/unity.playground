@@ -5,11 +5,11 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(NavigationSystem))]
-public abstract class AgentBase : MonoBehaviour
+public abstract class AgentBase : MonoBehaviour, IAIAgent
 {
-    public HashSet<ActionBase> AvailableActions;
-    public Queue<ActionBase> CurrentActions;
-    public Planner Planner;
+    public HashSet<IAIAction> AvailableActions;
+    public Queue<IAIAction> CurrentActions;
+    public AIPlanner Planner;
     public FSMState IdleState;
     public FSMState MoveState;
     public FSMState ActState;
@@ -21,9 +21,9 @@ public abstract class AgentBase : MonoBehaviour
 
     protected virtual void Awake()
     {
-        Planner = new Planner(this);
-        CurrentActions = new Queue<ActionBase>();
-        AvailableActions = new HashSet<ActionBase>();
+        Planner = new AIPlanner(this);
+        CurrentActions = new Queue<IAIAction>();
+        AvailableActions = new HashSet<IAIAction>();
         WorldState = new State();
         Backpack = new Backpack(WorldState);
         GoalState = new State();
