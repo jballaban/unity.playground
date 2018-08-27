@@ -23,14 +23,14 @@ public class ActState : FSMState
             return;
         }
 
-        var action = _agent.CurrentActions.Peek() as ActionBase;
-        if (action.IsDone)
+        var action = _agent.CurrentActions.Peek() as AIActionBase;
+        if (action.isDone)
             _agent.CurrentActions.Dequeue();
 
         if (_agent.CurrentActions.Count > 0)
         {
             // perform the next action
-            action = _agent.CurrentActions.Peek() as ActionBase;
+            action = _agent.CurrentActions.Peek() as AIActionBase;
             if (!(action is ProximityActionBase) || (action is ProximityActionBase && (action as ProximityActionBase).IsInRange))
             {
                 // we are in range, so perform the action

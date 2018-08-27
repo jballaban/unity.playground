@@ -24,7 +24,7 @@ public abstract class ExtractAction<TSource, TOutput> : ProximityActionBase wher
         Target = closest2.Value.Value;
     }
 
-    public override bool Perform(AgentBase agent)
+    public override bool Perform(AIActionIAgent agent)
     {
         var resource = Target as ResourceRecollection;
         if (resource == null) return Failure(agent);

@@ -22,7 +22,7 @@ public class GetAction<TResource> : ProximityActionBase where TResource : Resour
         Target = closest2.Value.Value;
     }
 
-    public override bool Perform(AgentBase agent)
+    public override bool Perform(AIActionIAgent agent)
     {
         var resource = Target as ResourceRecollection;
         if (resource == null) return Failure(agent);
@@ -32,7 +32,7 @@ public class GetAction<TResource> : ProximityActionBase where TResource : Resour
             _resourceMemory.Forget(Target.id);
             return Failure(agent);
         }
-        agent.Backpack.Inc<TResource>(original.Take(1f));
+        (agent as AgentBase).Backpack.Inc<TResource>(original.Take(1f));
         if (original.Quantity == 0f)
         { // empty
             _resourceMemory.Forget(Target.id);

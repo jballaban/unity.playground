@@ -13,9 +13,9 @@ public class SearchAction<TResource> : ProximityActionBase where TResource : Res
         this.cost = 10f;
     }
 
-    public override bool Perform(AgentBase agent)
+    public override bool Perform(AIActionIAgent agent)
     {
-        if (!agent.WorldState.ContainsKey("know" + typeof(TResource).Name))
+        if (!(agent as AgentBase).WorldState.ContainsKey("know" + typeof(TResource).Name))
             return Failure(agent);
         return Success(agent);
     }

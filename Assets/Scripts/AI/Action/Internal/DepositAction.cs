@@ -20,7 +20,7 @@ public abstract class DepositAction<TDestination, TResource> : ProximityActionBa
         Target = closest2.Value.Value;
     }
 
-    public override bool Perform(AgentBase agent)
+    public override bool Perform(AIActionIAgent agent)
     {
         var resource = Target as ResourceRecollection;
         if (resource == null) return Failure(agent);
@@ -30,7 +30,7 @@ public abstract class DepositAction<TDestination, TResource> : ProximityActionBa
             _resourceMemory.Forget(resource.id);
             return Failure(agent);
         }
-        original.Inc(agent.Backpack.Take<TResource>(1f));
+        original.Inc((agent as AgentBase).Backpack.Take<TResource>(1f));
         return Failure(agent);
     }
 

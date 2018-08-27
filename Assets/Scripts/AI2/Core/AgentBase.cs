@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(NavigationSystem))]
-public abstract class AgentBase : MonoBehaviour, AIPlannerIAgent
+public abstract class AgentBase : MonoBehaviour, AIPlannerIAgent, AIActionIAgent
 {
     public HashSet<AIPlannerIAction> AvailableActions;
     public Queue<AIPlannerIAction> CurrentActions;
@@ -27,7 +27,7 @@ public abstract class AgentBase : MonoBehaviour, AIPlannerIAgent
         WorldState = new State();
         Backpack = new Backpack(WorldState);
         GoalState = new State();
-        foreach (var a in gameObject.GetComponents<ActionBase>())
+        foreach (var a in gameObject.GetComponents<AIActionBase>())
             AvailableActions.Add(a);
         IdleState = new IdleState(this);
         MoveState = new MoveState(this);

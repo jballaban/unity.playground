@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class ProximityActionBase : ActionBase
+public abstract class ProximityActionBase : AIActionBase
 {
     public bool IsInRange = false;
     public Vector3 Destination = Vector3.zero;
