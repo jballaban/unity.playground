@@ -27,8 +27,9 @@ public class Memory : MonoBehaviour
 		return tagsByMemory[memory];
 	}
 
-	public void Remember(string tag, IMemory memory)
+	public void Remember(HashSet<string> tags, IMemory memory)
 	{
+		// todo: if remembering the same object again we have to remove diff
 		if (!memoriesByTag.ContainsKey(tag))
 			memoriesByTag[tag] = new HashSet<IMemory>() { memory };
 		else
@@ -40,7 +41,19 @@ public class Memory : MonoBehaviour
 		memoriesById[memory.GetInstanceID()] = memory;
 	}
 
-	public void RemoveTagFromMemory(string tag, IMemory memory)
+	public void AddTag(string tag, IMemory memory)
+	{
+		if (!memoriesByTag.ContainsKey(tag))
+			memoriesByTag[tag] = new HashSet<IMemory>() { memory };
+		else
+			memoriesByTag[tag].Add(memory);
+		if (!tagsByMemory.ContainsKey(memory))
+			throw new Exception("Cannot add tag to a memory that isn't currently remembered");
+		tagsByMemory[memory].Add(tag);
+		memoriesById[memory.GetInstanceID()] = memory;
+	}
+
+	public void RemoveTag(string tag, IMemory memory)
 	{
 		if (!tagsByMemory.ContainsKey(memory))
 			throw new Exception("How are we forgetting something we never knew!");
@@ -48,12 +61,7 @@ public class Memory : MonoBehaviour
 			throw new Exception($"Trying to remove a tag that doesn't exist on a memory! {tag}");
 		tagsByMemory[memory].Remove(tag);
 		if (tagsByMemory[memory].Count == 0)
-			tagsByMemory.Remove(memory);
-		if (!memoriesByTag.ContainsKey(tag))
-			throw new Exception($"Somehow a memory exists in a tag we don't know about {tag}");
-		memoriesByTag[tag].Remove(memory);
-		if (memoriesByTag[tag].Count == 0)
-			memoriesByTag.Remove(tag);
+			Forget(memory);
 	}
 
 	public void Forget(IMemory memory)
@@ -69,6 +77,8 @@ public class Memory : MonoBehaviour
 				memoriesByTag.Remove(tag);
 		}
 		tagsByMemory.Remove(memory);
+		if (!memoriesById.ContainsKey(memory.GetInstanceID()))
+			throw new Exception($"Missing id cache on memory {memory.GetInstanceID()}");
 		memoriesById.Remove(memory.GetInstanceID());
 	}
 }
