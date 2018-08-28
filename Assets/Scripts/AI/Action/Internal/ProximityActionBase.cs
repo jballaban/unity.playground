@@ -2,20 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class ProximityActionBase : AIActionBase
+public abstract class AIActionProximityBase : AIActionBase
 {
-    public bool IsInRange = false;
-    public Vector3 Destination = Vector3.zero;
-    public EntityRecollection Target = null;
+    public bool isInRange = false;
+    public Vector3 destination = Vector3.zero;
+    public EntityRecollection target = null;
 
     public override void Reset()
     {
         base.Reset();
-        IsInRange = false;
-        Target = null;
-        Destination = Vector3.zero;
+        isInRange = false;
+        target = null;
+        destination = Vector3.zero;
     }
 
-    public abstract void DetermineTarget(AgentBase agent);
+    public abstract void DetermineTarget(AIActionIAgent agent);
 
 }

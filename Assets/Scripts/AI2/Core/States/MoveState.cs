@@ -19,7 +19,7 @@ public class MoveState : FSMState
     public void Enter()
     {
         _rethinkTime = 0f;
-        _nav.GoTo((_agent.CurrentActions.Peek() as ProximityActionBase).Destination);
+        _nav.GoTo((_agent.CurrentActions.Peek() as AIActionProximityBase).destination);
     }
 
     public void Exit()
@@ -29,10 +29,10 @@ public class MoveState : FSMState
 
     public void Update(FSM fsm)
     {
-        ProximityActionBase action = null;
+        AIActionProximityBase action = null;
         if (_agent.CurrentActions.Count > 0)
-            action = _agent.CurrentActions.Peek() as ProximityActionBase;
-        if (action == null || !_nav.Valid() || action.Destination == Vector3.zero)
+            action = _agent.CurrentActions.Peek() as AIActionProximityBase;
+        if (action == null || !_nav.Valid() || action.destination == Vector3.zero)
         {
             fsm.PopState(); // move
             fsm.PopState(); // perform
@@ -41,7 +41,7 @@ public class MoveState : FSMState
         }
         if (_nav.RemainingDistance() <= SuccessDistance)
         {
-            action.IsInRange = true;
+            action.isInRange = true;
             fsm.PopState();
             return;
         }
@@ -61,11 +61,11 @@ public class MoveState : FSMState
 
     void Rethink()
     {
-        ProximityActionBase action = null;
+        AIActionProximityBase action = null;
         if (_agent.CurrentActions.Count > 0)
-            action = _agent.CurrentActions.Peek() as ProximityActionBase;
+            action = _agent.CurrentActions.Peek() as AIActionProximityBase;
         if (action != null)
-            _nav.GoTo((_agent.CurrentActions.Peek() as ProximityActionBase).Destination);
+            _nav.GoTo((_agent.CurrentActions.Peek() as AIActionProximityBase).destination);
     }
 
 }

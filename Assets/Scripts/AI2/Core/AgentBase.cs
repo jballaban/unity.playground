@@ -17,7 +17,7 @@ public abstract class AgentBase : MonoBehaviour, AIPlannerIAgent, AIActionIAgent
     public State WorldState;
     public State GoalState;
     public Backpack Backpack;
-    public NavigationSystem Navigation;
+    public NavigationSystem Navigation { get; set; }
 
     protected virtual void Awake()
     {

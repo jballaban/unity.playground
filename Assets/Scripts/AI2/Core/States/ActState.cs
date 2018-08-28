@@ -31,7 +31,7 @@ public class ActState : FSMState
         {
             // perform the next action
             action = _agent.CurrentActions.Peek() as AIActionBase;
-            if (!(action is ProximityActionBase) || (action is ProximityActionBase && (action as ProximityActionBase).IsInRange))
+            if (!(action is AIActionProximityBase) || (action is AIActionProximityBase && (action as AIActionProximityBase).isInRange))
             {
                 // we are in range, so perform the action
                 if (!action.Perform(_agent))
@@ -46,7 +46,7 @@ public class ActState : FSMState
             {
                 // we need to move there first
                 // push moveTo state
-                (action as ProximityActionBase).DetermineTarget(_agent);
+                (action as AIActionProximityBase).DetermineTarget(_agent);
                 fsm.PushState(_agent.MoveState);
             }
         }

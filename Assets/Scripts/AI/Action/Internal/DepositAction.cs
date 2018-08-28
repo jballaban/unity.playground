@@ -1,7 +1,7 @@
 using System.Linq;
 using UnityEngine;
 
-public abstract class DepositAction<TDestination, TResource> : ProximityActionBase where TResource : ResourceBase where TDestination : ResourceBase
+public abstract class DepositAction<TDestination, TResource> : AIActionProximityBase where TResource : ResourceBase where TDestination : ResourceBase
 {
     ResourceMemoryComponent _resourceMemory;
     protected override void Start()
@@ -13,16 +13,16 @@ public abstract class DepositAction<TDestination, TResource> : ProximityActionBa
         _resourceMemory = GetComponent<ResourceMemoryComponent>();
     }
 
-    public override void DetermineTarget(AgentBase agent)
+    public override void DetermineTarget(AIActionIAgent agent)
     {
         var closest2 = agent.Navigation.GetClosest(_resourceMemory.GetAll(typeof(TDestination)).Select(m => new System.Collections.Generic.KeyValuePair<Vector3, ResourceRecollection>(m.position, m)).ToList());
-        Destination = closest2.Value.Key;
-        Target = closest2.Value.Value;
+        destination = closest2.Value.Key;
+        target = closest2.Value.Value;
     }
 
     public override bool Perform(AIActionIAgent agent)
     {
-        var resource = Target as ResourceRecollection;
+        var resource = target as ResourceRecollection;
         if (resource == null) return Failure(agent);
         var original = resource.manager.FindByID(resource.id);
         if (original == null)

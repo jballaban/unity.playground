@@ -5,15 +5,16 @@ using UnityEngine;
 
 public abstract class MemoryComponentBase : MonoBehaviour
 {
-    MemorySystem _memorySystem;
+    MemorySystem memorySystem;
     protected AgentBase agent;
+
     void Awake()
     {
-        _memorySystem = GetComponentInParent<MemorySystem>();
-        if (_memorySystem == null)
+        memorySystem = GetComponentInParent<MemorySystem>();
+        if (memorySystem == null)
             throw new Exception("MemorySystem required to be a parent of MemoryComponent");
-        _memorySystem.RegisterEvent(new MemorySystem.RememberEvent());
-        _memorySystem.RegisterEvent(new MemorySystem.ForgetEvent());
+        memorySystem.RegisterEvent(new MemorySystem.RememberEvent());
+        memorySystem.RegisterEvent(new MemorySystem.ForgetEvent());
         agent = GetComponent<AgentBase>();
     }
 
@@ -28,7 +29,7 @@ public abstract class MemoryComponentBase : MonoBehaviour
         }
         var safedata = Activator.CreateInstance(typeof(T), new object[] { id, data });
         _memories.Add(id, safedata);
-        _memorySystem.GetEvent<MemorySystem.RememberEvent>().Invoke(id, safedata);
+        memorySystem.GetEvent<MemorySystem.RememberEvent>().Invoke(id, safedata);
     }
 
     public virtual void Forget(int id)
@@ -37,7 +38,7 @@ public abstract class MemoryComponentBase : MonoBehaviour
         {
             var data = _memories[id];
             _memories.Remove(id);
-            _memorySystem.GetEvent<MemorySystem.ForgetEvent>().Invoke(id, data);
+            memorySystem.GetEvent<MemorySystem.ForgetEvent>().Invoke(id, data);
         }
     }
 

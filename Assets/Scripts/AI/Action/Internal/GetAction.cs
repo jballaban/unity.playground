@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using UnityEngine;
 
-public class GetAction<TResource> : ProximityActionBase where TResource : ResourceBase
+public class GetAction<TResource> : AIActionProximityBase where TResource : ResourceBase
 {
     ResourceMemoryComponent _resourceMemory;
 
@@ -15,27 +15,27 @@ public class GetAction<TResource> : ProximityActionBase where TResource : Resour
         _resourceMemory = GetComponent<ResourceMemoryComponent>();
     }
 
-    public override void DetermineTarget(AgentBase agent)
+    public override void DetermineTarget(AIActionIAgent agent)
     {
         var closest2 = agent.Navigation.GetClosest(_resourceMemory.GetAll(typeof(TResource)).Select(m => new System.Collections.Generic.KeyValuePair<Vector3, ResourceRecollection>(m.position, m)).ToList());
-        Destination = closest2.Value.Key;
-        Target = closest2.Value.Value;
+        destination = closest2.Value.Key;
+        target = closest2.Value.Value;
     }
 
     public override bool Perform(AIActionIAgent agent)
     {
-        var resource = Target as ResourceRecollection;
+        var resource = target as ResourceRecollection;
         if (resource == null) return Failure(agent);
         var original = resource.manager.FindByID(resource.id);
         if (original == null)
         {
-            _resourceMemory.Forget(Target.id);
+            _resourceMemory.Forget(target.id);
             return Failure(agent);
         }
         (agent as AgentBase).Backpack.Inc<TResource>(original.Take(1f));
         if (original.Quantity == 0f)
         { // empty
-            _resourceMemory.Forget(Target.id);
+            _resourceMemory.Forget(target.id);
         }
         return Success(agent);
     }

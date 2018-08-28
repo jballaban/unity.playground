@@ -1,7 +1,7 @@
 using System.Linq;
 using UnityEngine;
 
-public class SearchAction<TResource> : ProximityActionBase where TResource : ResourceBase
+public class SearchAction<TResource> : AIActionProximityBase where TResource : ResourceBase
 {
 
     protected override void Start()
@@ -20,9 +20,9 @@ public class SearchAction<TResource> : ProximityActionBase where TResource : Res
         return Success(agent);
     }
 
-    public override void DetermineTarget(AgentBase agent)
+    public override void DetermineTarget(AIActionIAgent agent)
     {
         var moveto = Random.insideUnitCircle * 10;
-        Destination = agent.gameObject.transform.position + new Vector3(moveto.x, 0, moveto.y);
+        destination = agent.gameObject.transform.position + new Vector3(moveto.x, 0, moveto.y);
     }
 }
