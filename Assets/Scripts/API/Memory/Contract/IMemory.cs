@@ -5,6 +5,6 @@ namespace API.Memory.Contract
 {
 	public interface IMemory
 	{
-		KeyValuePair<Type, int> id { get; }
+		KeyValuePair<Type, ValueType> id { get; }
 	}
 }

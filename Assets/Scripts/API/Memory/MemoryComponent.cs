@@ -8,16 +8,16 @@ namespace API.Memory
 {
 	public class MemoryComponent : MonoBehaviour
 	{
-		Dictionary<string, List<KeyValuePair<Type, int>>> memoryIdsByTag = new Dictionary<string, List<KeyValuePair<Type, int>>>();
-		Dictionary<KeyValuePair<Type, int>, IMemory> memoryById = new Dictionary<KeyValuePair<Type, int>, IMemory>();
-		Dictionary<KeyValuePair<Type, int>, HashSet<string>> tagsByMemoryId = new Dictionary<KeyValuePair<Type, int>, HashSet<string>>();
+		Dictionary<string, List<KeyValuePair<Type, ValueType>>> memoryIdsByTag = new Dictionary<string, List<KeyValuePair<Type, ValueType>>>();
+		Dictionary<KeyValuePair<Type, ValueType>, IMemory> memoryById = new Dictionary<KeyValuePair<Type, ValueType>, IMemory>();
+		Dictionary<KeyValuePair<Type, ValueType>, HashSet<string>> tagsByMemoryId = new Dictionary<KeyValuePair<Type, ValueType>, HashSet<string>>();
 
-		public T Recall<T>(KeyValuePair<Type, int> id) where T : IMemory
+		public T Recall<T>(KeyValuePair<Type, ValueType> id) where T : IMemory
 		{
 			return (T)Recall(id);
 		}
 
-		public IMemory Recall(KeyValuePair<Type, int> id)
+		public IMemory Recall(KeyValuePair<Type, ValueType> id)
 		{
 			if (!memoryById.ContainsKey(id)) return null;
 			return memoryById[id];
@@ -25,12 +25,19 @@ namespace API.Memory
 
 		public List<T> Recall<T>(string tag) where T : IMemory
 		{
-			return Recall(tag).Cast<T>().ToList();
+			return memoryIdsByTag.ContainsKey(tag) ? memoryIdsByTag[tag].Select(x => Recall(x)).Cast<T>().ToList() : new List<T>();
 		}
 
 		public List<IMemory> Recall(string tag)
 		{
 			return memoryIdsByTag.ContainsKey(tag) ? memoryIdsByTag[tag].Select(x => Recall(x)).ToList() : new List<IMemory>();
+		}
+
+		public List<T> RecallNearby<T>(string tag, Vector3 position, float distance) where T : IMemory, IMemoryLocation
+		{
+			if (!memoryIdsByTag.ContainsKey(tag)) return new List<T>();
+			// TODO: IMplement SpacialIndex/RTREE this is very inefficient!
+			return Recall(tag).Cast<IMemoryLocation>().Where(x => Vector3.Distance(x.position, position) <= distance).OrderBy(x => Vector3.Distance(x.position, position)).Cast<T>().ToList();
 		}
 
 		public void Remember(IMemory memory, HashSet<string> tags, params string[] additionaltags)
@@ -46,7 +53,7 @@ namespace API.Memory
 			foreach (string tag in fulltags) // ensure all tags are tracked
 			{
 				if (!memoryIdsByTag.ContainsKey(tag))
-					memoryIdsByTag[tag] = new List<KeyValuePair<Type, int>>() { memory.id };
+					memoryIdsByTag[tag] = new List<KeyValuePair<Type, ValueType>>() { memory.id };
 				else
 					memoryIdsByTag[tag].Insert(0, memory.id); // recent memories first
 			}
