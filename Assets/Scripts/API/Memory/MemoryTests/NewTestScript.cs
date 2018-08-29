@@ -32,6 +32,7 @@ public class NewTestScript
 	class PersonMemory : ObjectMemory
 	{
 		public float health { get; set; }
+
 		public PersonMemory(GameObject gameobject) : base(gameobject)
 		{
 			health = gameobject.GetComponent<PersonComponent>().health;
@@ -48,7 +49,6 @@ public class NewTestScript
 		}
 
 		public float level { get; set; }
-
 	}
 
 	[Test]
@@ -147,7 +147,6 @@ public class NewTestScript
 		self.memory.Remember(friendmemory, hurtfriend.tags, TAG_FRIEND);
 		// ensure we don't know any hurt people
 		Assert.AreEqual(0, self.memory.Recall(TAG_FRIEND_HURT).Count);
-		// TODO: learn from our friend that he killed the bad guy so de-ecalate the area danger factor 
 		// go home
 		self.transform.position = self.memory.Recall<PlaceMemory>(TAG_HOME)[0].position;
 		Assert.AreEqual(homecontainer.transform.position, self.transform.position);
