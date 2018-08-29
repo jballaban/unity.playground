@@ -12,10 +12,20 @@ namespace API.Memory
 		Dictionary<KeyValuePair<Type, int>, IMemory> memoryById = new Dictionary<KeyValuePair<Type, int>, IMemory>();
 		Dictionary<KeyValuePair<Type, int>, HashSet<string>> tagsByMemoryId = new Dictionary<KeyValuePair<Type, int>, HashSet<string>>();
 
+		public T Recall<T>(KeyValuePair<Type, int> id) where T : IMemory
+		{
+			return (T)Recall(id);
+		}
+
 		public IMemory Recall(KeyValuePair<Type, int> id)
 		{
 			if (!memoryById.ContainsKey(id)) return null;
 			return memoryById[id];
+		}
+
+		public List<T> Recall<T>(string tag) where T : IMemory
+		{
+			return Recall(tag).Cast<T>().ToList();
 		}
 
 		public List<IMemory> Recall(string tag)

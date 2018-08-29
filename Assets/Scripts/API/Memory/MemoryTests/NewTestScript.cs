@@ -64,46 +64,49 @@ public class NewTestScript
 		// enemy moves
 		enemy.transform.position = new Vector3(100, 0, 150);
 		// we remember enemy and go towards last known location but enemy is gone
-		var enemiesmemory = self.memory.Recall(TAG_ENEMY);
+		var enemiesmemory = self.memory.Recall<PersonMemory>(TAG_ENEMY);
 		Assert.AreEqual(enemiesmemory.Count, 1);
-		var enemymemory = (enemiesmemory[0] as ObjectMemory);
+		var enemymemory = enemiesmemory[0];
 		self.transform.position = enemymemory.position;
 		// wander until he see enemy in new location
 		self.transform.position = new Vector3(100, 0, 150);
-		// see enemy attacks enemy and our health is reduced
+		// see enemy
+		self.memory.Remember(new PersonMemory(enemycontainer), enemy.tags, TAG_ENEMY);
+		// TODO: mark area as dangerous
+		// attacks enemy and our health is reduced
 		self.health = 60f;
-		// run away
+		// run away randomly
 		self.transform.position = new Vector3(50, 0, 100);
 		// sees friends and realize one is hurt
 		self.memory.Remember(new PersonMemory(hurtfriendcontainer), hurtfriend.tags, TAG_FRIEND, TAG_FRIEND_HURT);
 		self.memory.Remember(new PersonMemory(healthyfriendcontainer), healthyfriend.tags, TAG_FRIEND);
-		// friend kills enemy but we don't know it happened
+		// friend goes and kills enemy but we don't know it happened
 		UnityEngine.Object.Destroy(enemycontainer);
 		// friend got hurt in the battle
 		hurtfriend.health -= 1;
-		// we look for our enemy again
-		enemiesmemory = self.memory.Recall(TAG_ENEMY);
+		// we look for our enemy again to finish him not knowing our friend did
+		enemiesmemory = self.memory.Recall<PersonMemory>(TAG_ENEMY);
 		Assert.AreEqual(1, enemiesmemory.Count);
-		enemymemory = enemiesmemory[0] as ObjectMemory;
+		enemymemory = enemiesmemory[0];
 		self.transform.position = enemymemory.position;
-		// can't find him so we decide to forget he exists
+		// can't find him so we decide to forget he exists but keep danger marking in this area as he may still be around
 		self.memory.Forget(enemymemory);
-		enemiesmemory = self.memory.Recall(TAG_ENEMY);
+		enemiesmemory = self.memory.Recall<PersonMemory>(TAG_ENEMY);
 		Assert.AreEqual(0, enemiesmemory.Count);
 		// remember we have friends
-		var friendsmemory = self.memory.Recall(TAG_FRIEND);
+		var friendsmemory = self.memory.Recall<PersonMemory>(TAG_FRIEND);
 		Assert.AreEqual(2, friendsmemory.Count);
-		// go find our hurt friends
-		friendsmemory = self.memory.Recall(TAG_FRIEND_HURT);
+		// go find our most hurt friends
+		friendsmemory = self.memory.Recall<PersonMemory>(TAG_FRIEND_HURT);
 		Assert.AreEqual(1, friendsmemory.Count);
-		var friendmemory = (friendsmemory[0] as PersonMemory);
+		var friendmemory = friendsmemory[0];
 		Assert.AreEqual(10f, friendmemory.health);
 		self.transform.position = friendmemory.position;
 		// see our hurt friend
 		friendmemory = new PersonMemory(hurtfriendcontainer);
 		self.memory.Remember(friendmemory, hurtfriend.tags, TAG_FRIEND, TAG_FRIEND_HURT);
 		// realize he's even more hurt than we remember
-		Assert.AreEqual(9f, (self.memory.Recall(friendmemory.id) as PersonMemory).health);
+		Assert.AreEqual(9f, self.memory.Recall<PersonMemory>(friendmemory.id).health);
 		// heal them
 		hurtfriend.health = 100f;
 		// retag them as healthy
