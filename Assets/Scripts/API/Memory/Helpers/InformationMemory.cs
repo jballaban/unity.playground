@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using API.Memory.Contract;
+using API.Memory.Internal;
 
 public class InformationMemory<T> : IMemory
 {
-    public KeyValuePair<Type, ValueType> id { get; set; }
+    public MemoryID id { get; set; }
     public string topic { get; set; }
     public T data { get; set; }
 
@@ -12,6 +13,6 @@ public class InformationMemory<T> : IMemory
     {
         this.topic = topic;
         this.data = data;
-        this.id = new KeyValuePair<Type, ValueType>(this.GetType(), topic.GetHashCode());
+        this.id = new MemoryID(this.GetType(), topic.GetHashCode());
     }
 }

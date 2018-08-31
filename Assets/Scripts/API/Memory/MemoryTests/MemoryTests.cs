@@ -26,11 +26,11 @@ public class MemoryTests
         public HashSet<string> tags = new HashSet<string>() { TAG_PERSON };
         public string type { get; set; }
         public float health = 100f;
-        public MemoryComponent memory;
+        public TaggedMemoryComponent memory;
 
         void Awake()
         {
-            memory = GetComponent<MemoryComponent>();
+            memory = GetComponent<TaggedMemoryComponent>();
         }
     }
 
@@ -60,14 +60,14 @@ public class MemoryTests
     public void MemoryComponent_Tests()
     {
         var selfcontainer = new GameObject();
-        selfcontainer.AddComponent<MemoryComponent>();
+        selfcontainer.AddComponent<TaggedMemoryComponent>();
         var self = selfcontainer.AddComponent<PersonComponent>();
         selfcontainer.transform.position = new Vector3(100, 0, 50);
         var homecontainer = new GameObject();
         homecontainer.transform.position = new Vector3(0, 0, 0);
 
         // know home
-        self.memory.Remember(new PlaceMemory(homecontainer.transform.position), null, TAG_HOME);
+        self.memory.Remember(new PlaceMemory(homecontainer.transform.position), TAG_HOME);
         // put weapon in home
         var weaponcontainer = new GameObject();
         weaponcontainer.transform.position = homecontainer.transform.position;
@@ -91,16 +91,16 @@ public class MemoryTests
         healthyfriendcontainer.transform.position = new Vector3(50, 0, 100);
 
         // we see enemy
-        self.memory.Remember(new PersonMemory(enemycontainer), enemy.tags, TAG_ENEMY);
+        self.memory.Remember(new PersonMemory(enemycontainer), TAG_PERSON, TAG_ENEMY);
         // add enemy type to our memory
-        var factmemory = self.memory.Recall<InformationMemory<HashSet<string>>>(FACT_PEOPLE_TYPES.id, FACT_PEOPLE_TYPES);
-        factmemory.data.Add(enemy.type);
-        self.memory.Remember(FACT_PEOPLE_TYPES, null, TAG_FACT);
-        Assert.AreEqual(self.memory.Recall<InformationMemory<HashSet<string>>>(FACT_PEOPLE_TYPES.id).data, factmemory.data);
-        Assert.IsTrue(self.memory.Recall<InformationMemory<HashSet<string>>>(FACT_PEOPLE_TYPES.id).data.Contains(TAG_BANDIT));
+        //    var factmemory = self.memory.Recall<InformationMemory<HashSet<string>>>(FACT_PEOPLE_TYPES.id, FACT_PEOPLE_TYPES);
+        //   factmemory.data.Add(enemy.type);
+        // self.memory.Remember(FACT_PEOPLE_TYPES, null, TAG_FACT);
+        //  Assert.AreEqual(self.memory.Recall<InformationMemory<HashSet<string>>>(FACT_PEOPLE_TYPES.id).data, factmemory.data);
+        // Assert.IsTrue(self.memory.Recall<InformationMemory<HashSet<string>>>(FACT_PEOPLE_TYPES.id).data.Contains(TAG_BANDIT));
         // mark area as dangerous
         var area = new DangerArea(enemycontainer.transform.position, 1f);
-        self.memory.Remember(area, area.tags);
+        self.memory.Remember(area, TAG_AREA_DANGER);
         // go get a weapon
         var weaponsmemory = self.memory.Recall<ObjectMemory>(TAG_WEAPON);
         Assert.AreEqual(1, weaponsmemory.Count);
@@ -117,17 +117,17 @@ public class MemoryTests
         // wander until he see enemy in new location
         self.transform.position = new Vector3(100, 0, 150);
         // see enemy
-        self.memory.Remember(new PersonMemory(enemycontainer), enemy.tags, TAG_ENEMY);
+        self.memory.Remember(new PersonMemory(enemycontainer), TAG_PERSON, TAG_ENEMY);
         // Mark area as dangerous
         area = new DangerArea(enemycontainer.transform.position, 1f);
-        self.memory.Remember(area, area.tags);
+        self.memory.Remember(area, TAG_AREA_DANGER);
         // attacks enemy and our health is reduced
         self.health = 60f;
         // run away randomly
         self.transform.position = new Vector3(50, 0, 100);
         // sees friends and realize one is hurt
-        self.memory.Remember(new PersonMemory(hurtfriendcontainer), hurtfriend.tags, TAG_FRIEND, TAG_FRIEND_HURT);
-        self.memory.Remember(new PersonMemory(healthyfriendcontainer), healthyfriend.tags, TAG_FRIEND);
+        self.memory.Remember(new PersonMemory(hurtfriendcontainer), TAG_PERSON, TAG_FRIEND, TAG_FRIEND_HURT);
+        self.memory.Remember(new PersonMemory(healthyfriendcontainer), TAG_PERSON, TAG_FRIEND);
         // friend goes and kills enemy but we don't know it happened
         UnityEngine.Object.Destroy(enemycontainer);
         // friend got hurt in the battle
@@ -152,17 +152,29 @@ public class MemoryTests
         self.transform.position = friendmemory.position;
         // see our hurt friend
         friendmemory = new PersonMemory(hurtfriendcontainer);
-        self.memory.Remember(friendmemory, hurtfriend.tags, TAG_FRIEND, TAG_FRIEND_HURT);
+        self.memory.Remember(friendmemory, TAG_PERSON, TAG_FRIEND, TAG_FRIEND_HURT);
         // realize he's even more hurt than we remember
-        Assert.AreEqual(9f, self.memory.Recall<PersonMemory>(friendmemory.id).health);
+        //  Assert.AreEqual(9f, self.memory.Recall<PersonMemory>(friendmemory.id).health);
         // heal them
         hurtfriend.health = 100f;
         // retag them as healthy
-        self.memory.Remember(friendmemory, hurtfriend.tags, TAG_FRIEND);
+        self.memory.Remember(friendmemory, TAG_PERSON, TAG_FRIEND);
         // ensure we don't know any hurt people
-        Assert.AreEqual(0, self.memory.Recall(TAG_FRIEND_HURT).Count);
+        Assert.AreEqual(0, self.memory.Recall<PersonMemory>(TAG_FRIEND_HURT).Count);
         // go home
         self.transform.position = self.memory.Recall<PlaceMemory>(TAG_HOME)[0].position;
         Assert.AreEqual(homecontainer.transform.position, self.transform.position);
+        // find nearest dangerzone to scout within 10 radius
+        //    var areas = self.memory.RecallNearby<DangerArea>(TAG_AREA_DANGER, self.transform.position, 10f);
+        //  Assert.AreEqual(0, areas.Count);
+        // nothing dangerous thta close to our home
+        // look further
+        //   areas = self.memory.RecallNearby<DangerArea>(TAG_AREA_DANGER, self.transform.position, 1000f);
+        //    Assert.AreEqual(2, areas.Count);
+        // go to first area and clear it
+        //  self.transform.transform.position = areas[0].position;
+        // self.memory.Forget(areas[0]);
+        // areas = self.memory.RecallNearby<DangerArea>(TAG_AREA_DANGER, self.transform.position, 1000f);
+        //   Assert.AreEqual(1, areas.Count);
     }
 }

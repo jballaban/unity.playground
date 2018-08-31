@@ -1,0 +1,66 @@
+Place
+Type of person
+Object
+
+Place = Home, Dangerous, Explored
+
+Person = Person, Friend, Enemy, Hurt
+
+Types of People = Soldier, Bandit, Self
+
+Chasing = Person
+
+Person: thing
+Friend: thing
+Hurt: thing
+Types: thing
+
+Position: Vector3
+PersonType: Type, AvgFriendlyLevel
+Person: Type, FriendlyLevel, Health
+Resource: Type, Amount, Position, IsArea
+Weapon: Type, Damage
+WeaponType: Type, Requirements
+
+Areas:
+- Explored: List<Vector3>
+- Danger: List<Vector3>
+- Home: Vector3
+
+Facts:
+- People Types: List<PersonType>
+- Types: List<WeaponType>
+
+People:
+- Persons: List<Person>
+- Friends: List<Person>
+- Enemies: List<Person>
+
+Weapons:
+- Weapons: List<Weapon>
+
+Resources:
+- Areas: List<Resource>
+- Resources: List<Resource>
+
+
+
+- Areas:
+- - Explored: List of positions
+- - Danger Areas: List of positions
+- - Home: position
+
+- Friends:
+- - Alive: list of persons
+- - Dead: list of persons
+
+- Persons:
+- - Friends: list of persons
+- - Enemmies: list of persons
+- - Important Locations:
+- - - Last: person position
+- - - Hangouts: person list of positions
+
+- Resources:
+- - Wood:
+- - - Areas
