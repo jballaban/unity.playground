@@ -71,12 +71,18 @@ namespace API.Memory
 			disassociate(b, a);
 		}
 
-		public void Associate(IMemory a, IMemory b)
+		public void Associate(params IMemory[] memories)
 		{
-			if (!IsKnown(a.id) || !IsKnown(b.id))
-				throw new Exception("Cannot association unknown ids");
-			associate(a, b);
-			associate(b, a);
+			for (int a = 0; a < memories.Length - 1; a++)
+			{
+				if (!IsKnown(memories[a].id))
+					throw new Exception("Cannot associate an unknown memory: " + memories[a].id);
+				for (int b = a + 1; b < memories.Length; b++)
+				{
+					associate(memories[a], memories[b]);
+					associate(memories[b], memories[a]);
+				}
+			}
 		}
 
 		void disassociate(IMemory a, IMemory b)

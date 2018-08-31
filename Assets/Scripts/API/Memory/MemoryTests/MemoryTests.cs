@@ -105,6 +105,9 @@ public class MemoryTests
 		Assert.AreEqual(2, memory.GetAssociations<ObjectMemory>(memory.Recall<PlaceMemory>(p)).Count());
 		memory.Disassociate(o_m, p_m);
 		Assert.AreEqual(1, memory.GetAssociations<ObjectMemory>(memory.Recall<PlaceMemory>(p)).Count());
+		var t_m = memory.Remember<TopicMemory>("last seen");
+		memory.Associate(o_m, p_m, t_m);
+		Assert.AreEqual(1, memory.GetAssociations<ObjectMemory>(memory.Recall<TopicMemory>("last seen")).Count());
 	}
 
 	[Test]
