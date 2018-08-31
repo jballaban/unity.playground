@@ -12,7 +12,14 @@ namespace API.Memory
 		Dictionary<Type, HashSet<IMemory>> memoryByType = new Dictionary<Type, HashSet<IMemory>>();
 		Dictionary<IMemoryID, Dictionary<Type, HashSet<IMemory>>> associationById = new Dictionary<IMemoryID, Dictionary<Type, HashSet<IMemory>>>();
 
-		public IEnumerable<T> Recall<T>() where T : IMemory
+		public IEnumerable<T> RecallNear<T>(Vector3 position, float radius) where T : class, ILocationMemory
+		{
+			if (!memoryByType.ContainsKey(typeof(T)))
+				return new HashSet<T>();
+			return memoryByType[typeof(T)].Cast<T>().Where(x => x.Intersects(position, radius));
+		}
+
+		public IEnumerable<T> RecallAll<T>() where T : IMemory
 		{
 			if (!memoryByType.ContainsKey(typeof(T)))
 				return new HashSet<T>();
