@@ -5,11 +5,14 @@ using UnityEngine;
 
 public class PlaceMemory : IMemory, IMemoryLocation
 {
-	public KeyValuePair<Type, ValueType> id { get; set; }
+	public IMemoryID id { get; set; }
 	public Vector3 position { get; set; }
+
+	internal PlaceMemory(object position) : this((Vector3)position) { }
+
 	public PlaceMemory(Vector3 position)
 	{
 		this.position = position;
-		this.id = new KeyValuePair<Type, ValueType>(this.GetType(), this.position);
+		this.id = new MemoryID<PlaceMemory>(this.position);
 	}
 }
