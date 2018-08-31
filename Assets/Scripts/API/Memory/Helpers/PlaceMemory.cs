@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using API.Memory.Contract;
 using UnityEngine;
 
-public class PlaceMemory : IMemory, IMemoryLocation
+public class PlaceMemory : IMemory
 {
 	public IMemoryID id { get; set; }
 	public Vector3 position { get; set; }

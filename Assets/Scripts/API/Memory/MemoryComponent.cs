@@ -58,12 +58,24 @@ namespace API.Memory
 			return associationById[memory.id][typeof(T)].Cast<T>();
 		}
 
+		public void Disassociate(IMemory a, IMemory b)
+		{
+			disassociate(a, b);
+			disassociate(b, a);
+		}
+
 		public void Associate(IMemory a, IMemory b)
 		{
 			if (!IsKnown(a.id) || !IsKnown(b.id))
 				throw new Exception("Cannot association unknown ids");
 			associate(a, b);
 			associate(b, a);
+		}
+
+		void disassociate(IMemory a, IMemory b)
+		{
+			if (associationById.ContainsKey(a.id) && associationById[a.id].ContainsKey(b.GetType()))
+				associationById[a.id][b.GetType()].Remove(b);
 		}
 
 		void associate(IMemory a, IMemory b)
