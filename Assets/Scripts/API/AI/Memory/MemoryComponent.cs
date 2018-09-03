@@ -4,7 +4,7 @@ using System.Linq;
 using API.AI.Memory.Contract;
 using UnityEngine;
 
-namespace API.Memory
+namespace API.AI.Memory
 {
     public class MemoryComponent : MonoBehaviour
     {

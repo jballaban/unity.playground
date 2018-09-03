@@ -1,7 +1,7 @@
 {
-    "name": "MemoryTests",
+    "name": "APIAIMemoryTests",
     "references": [
-        "MemoryAPI"
+        "APIAIMemory"
     ],
     "optionalUnityReferences": [
         "TestAssemblies"

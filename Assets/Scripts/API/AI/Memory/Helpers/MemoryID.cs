@@ -1,6 +1,7 @@
 using System;
+using API.AI.Memory.Contract;
 
-namespace API.AI.Memory.Contract
+namespace API.AI.Memory.Helpers
 {
     public struct MemoryID<T> : IMemoryID where T : IMemory
     {

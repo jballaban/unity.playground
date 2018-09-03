@@ -2,7 +2,7 @@
 using UnityEngine.TestTools;
 using NUnit.Framework;
 using System.Collections;
-using API.Memory;
+using API.AI.Memory;
 using API.AI.Memory.Helpers;
 using System.Collections.Generic;
 using System;
