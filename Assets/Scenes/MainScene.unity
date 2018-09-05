@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -355,13 +355,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1422187698}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f835a2d8dd8777943b41992e7b056451, type: 3}
+  m_Script: {fileID: 0}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainSpeed: 2
-  shiftAdd: 25
-  maxShift: 100
-  mouseSensitivity: 1500
 --- !u!4 &1422187700
 Transform:
   m_ObjectHideFlags: 0
@@ -750,9 +746,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc834e5ea3ec8724abe46fcf483b9291, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsDone: 0
-  IsInRange: 0
-  Destination: {x: 0, y: 0, z: 0}
+  isDone: 0
+  isInRange: 0
+  destination: {x: 0, y: 0, z: 0}
 --- !u!114 &2048825043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -764,9 +760,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aff453650af5bac468829987eacb0ad4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsDone: 0
-  IsInRange: 0
-  Destination: {x: 0, y: 0, z: 0}
+  isDone: 0
+  isInRange: 0
+  destination: {x: 0, y: 0, z: 0}
 --- !u!114 &2048825045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -778,9 +774,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69f1505e7ba5ee540ab8e456fbba50ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsDone: 0
-  IsInRange: 0
-  Destination: {x: 0, y: 0, z: 0}
+  isDone: 0
+  isInRange: 0
+  destination: {x: 0, y: 0, z: 0}
 --- !u!114 &2048825046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -792,7 +788,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32d921b05817fa44da43c64173276fda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsDone: 0
+  isDone: 0
 --- !u!114 &2048825047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -804,9 +800,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8389f1055746fc4da04b5d1dd2eb241, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsDone: 0
-  IsInRange: 0
-  Destination: {x: 0, y: 0, z: 0}
+  isDone: 0
+  isInRange: 0
+  destination: {x: 0, y: 0, z: 0}
 --- !u!114 &2048825048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -818,9 +814,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff0cd2171840f964e96b35063e673937, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsDone: 0
-  IsInRange: 0
-  Destination: {x: 0, y: 0, z: 0}
+  isDone: 0
+  isInRange: 0
+  destination: {x: 0, y: 0, z: 0}
 --- !u!114 &2048825054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -832,6 +828,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2150adfa1bdb95b4eb914f55ecae08d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsDone: 0
-  IsInRange: 0
-  Destination: {x: 0, y: 0, z: 0}
+  isDone: 0
+  isInRange: 0
+  destination: {x: 0, y: 0, z: 0}
