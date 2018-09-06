@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using API.AI.Sensory.Contract;
 using UnityEngine;
 
@@ -33,7 +34,7 @@ namespace API.AI.Sensory.Helpers
                 {
                     // enemy is ahead of me and in my field of view
                     RaycastHit hitInfo;
-                    if (Physics.Raycast(transform.position, target.transform.position - transform.position, out hitInfo) == true)
+                    if (Physics.Raycast(transform.position, target.transform.position - transform.position, out hitInfo))
                     {
                         // we hit SOMETHING, not necessarily a player
                         if (hitInfo.collider.name == "Person")
