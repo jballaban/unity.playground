@@ -3,15 +3,22 @@ using UnityEngine;
 
 namespace API.AI.Sensory.Helpers
 {
-    public class VisionSensorComponent : VisionSensorComponentBase
+    public class VisionSensorComponent : MonoBehaviour, IVisionSensorComponent
     {
         public float arc = 45f;
-        public override void Lose(GameObject other)
+        public float _range = 10f;
+
+        public float range
+        {
+            get { return _range; }
+        }
+
+        public void Lose(GameObject other)
         {
             throw new System.NotImplementedException();
         }
 
-        public override void Perceive(GameObject other)
+        public void Perceive(GameObject other)
         {
             throw new System.NotImplementedException();
         }

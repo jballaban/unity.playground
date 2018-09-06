@@ -5,7 +5,7 @@ namespace API.AI.Sensory.Internal
 {
     public class TriggerHandler : MonoBehaviour
     {
-        public VisionSensorComponentBase caller;
+        public IVisionSensorComponent caller;
 
         void OnTriggerEnter(Collider other)
         {

@@ -7,11 +7,11 @@ namespace API.AI.Sensory
 {
     public class SensoryComponent : MonoBehaviour
     {
-        public VisionSensorComponentBase visionSensor;
+        public IVisionSensorComponent visionSensor;
 
         void Awake()
         {
-            visionSensor = GetComponent<VisionSensorComponentBase>();
+            visionSensor = GetComponent<IVisionSensorComponent>();
             if (visionSensor != null)
             {
                 var vision = new GameObject("VisionSensor");
